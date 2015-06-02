@@ -53,6 +53,16 @@ angular.module('FileSync')
 
 			userChangedState: function (state) {
 				socket.emit('user-visibility:changed', state);
-			}
+			},
+
+			onComment: function (f) {
+				socket.on('commentaire:new', function (user_id, comment) {
+					f(user_id, comment);
+				});
+			},
+
+			broadcastComment: function (comment) {
+				socket.emit('commentaire:new', comment);
+			},
 		};
 	}]);
